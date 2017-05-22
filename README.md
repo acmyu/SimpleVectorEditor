@@ -9,7 +9,7 @@ Press 'd' for drawing mode
 
 - Drag mouse to draw a line
 
-![drawing](img/drawing.png)
+![drawing](img/draw.png)
   
 Press 'e' for editing mode
 
@@ -19,7 +19,7 @@ Press 'e' for editing mode
   
 - Click on a point on that line to edit the point or its control points
 
-![editing](img/editing.png)
+![editing](img/edit.png)
   
 Press 'x' to export to a .png in bin/data
 
