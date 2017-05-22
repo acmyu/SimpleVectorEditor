@@ -135,7 +135,6 @@ void ofApp::mousePressed(int x, int y, int button){
 			if (iSelectedVertex == -1) {
 				iSelectedStroke = Stroke::getSelectedStroke(&strokes, mousePos);
 			}
-			cout << "s=" << iSelectedStroke << " v=" << iSelectedVertex << endl;
 		}
 	}
 	lastMousePos = mousePos;
