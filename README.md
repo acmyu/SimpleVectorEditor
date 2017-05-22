@@ -8,6 +8,8 @@ The executable provided in bin/ is tested on Windows 8
 Press 'd' for drawing mode
 
 - Drag mouse to draw a line
+
+![drawing](img/drawing.png)
   
 Press 'e' for editing mode
 
@@ -16,6 +18,8 @@ Press 'e' for editing mode
 - Drag that line to move it
   
 - Click on a point on that line to edit the point or its control points
+
+![editing](img/editing.png)
   
 Press 'x' to export to a .png in bin/data
 
