@@ -3,6 +3,8 @@ An OpenFrameworks app for drawing and editing smooth Bezier curves
 
 # Usage
 
+The executable provided in bin/ is tested on Windows 8
+
 Press 'd' for drawing mode
 
 - Drag mouse to draw a line
