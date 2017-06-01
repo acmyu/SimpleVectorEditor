@@ -1,6 +1,10 @@
 # SimpleVectorEditor
 An OpenFrameworks app for drawing and editing smooth Bezier curves
 
+# Installation
+
+Add the files into a new openFrameworks project. Requires the [ofxPathFitter addon](https://github.com/acmyu/ofxPathFitter)
+
 # Usage
 
 The executable provided in bin/ is tested on Windows 8
