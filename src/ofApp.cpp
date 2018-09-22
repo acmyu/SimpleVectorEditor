@@ -14,7 +14,7 @@ void ofApp::setup(){
 	isLeftMouseButtonPressed = false;
 	isSavingSVG = false;
 	isSavingRaster = false;
-	usrtask = DRAWING;
+	usrtask = Mode::DRAWING;
 
 	iSelectedStroke = -1;
 	iSelectedVertex = -1;
@@ -55,7 +55,7 @@ void ofApp::draw(){
 		}
 
 // ---------- everything drawn after this will not be saved -------------
-		if (usrtask == EDITING && iSelectedStroke != -1) {
+		if (usrtask == Mode::EDITING && iSelectedStroke != -1) {
 			strokes[iSelectedStroke].drawEditable(iSelectedVertex);
 		}
 	}
@@ -75,10 +75,10 @@ void ofApp::keyPressed(int key){
 	else if (key == 'd') {
 		iSelectedStroke = -1;
 		iSelectedVertex = -1;
-		usrtask = DRAWING;
+		usrtask = Mode::DRAWING;
 	}
 	else if (key == 'e') {
-		usrtask = EDITING;
+		usrtask = Mode::EDITING;
 	}
 	flushCanvas = true;
 }
@@ -90,7 +90,7 @@ void ofApp::keyReleased(int key){
 
 //--------------------------------------------------------------
 void ofApp::mouseMoved(int x, int y ){
-	if (usrtask == EDITING && iSelectedStroke != -1) {
+	if (usrtask == Mode::EDITING && iSelectedStroke != -1) {
 
 	}
 }
@@ -99,12 +99,12 @@ void ofApp::mouseMoved(int x, int y ){
 void ofApp::mouseDragged(int x, int y, int button){
 	ofVec2f mousePos(x, y);
 	if (button == OF_MOUSE_BUTTON_LEFT) {
-		if (usrtask == DRAWING) {
+		if (usrtask == Mode::DRAWING) {
 			currentStroke.addVertex(mousePos);
 		}
-		else if (usrtask == EDITING && iSelectedStroke != -1) {
+		else if (usrtask == Mode::EDITING && iSelectedStroke != -1) {
 			if (iSelectedVertex != -1) {
-				if (selectedHandle == POINT) {
+				if (selectedHandle == Stroke::VertexTypes::POINT) {
 					strokes[iSelectedStroke].modifyVertex(iSelectedVertex, lastMousePos, x, y);
 				}
 				else {
@@ -125,10 +125,10 @@ void ofApp::mousePressed(int x, int y, int button){
 	if (button == OF_MOUSE_BUTTON_LEFT) {
 		isLeftMouseButtonPressed = true;
 
-		if (usrtask == DRAWING) {
+		if (usrtask == Mode::DRAWING) {
 			currentStroke.startStroke();
 		}
-		else if (usrtask == EDITING) {
+		else if (usrtask == Mode::EDITING) {
 			if (iSelectedStroke != -1) {
 				iSelectedVertex = strokes[iSelectedStroke].getSelectedVertex(iSelectedVertex, selectedHandle, x, y);
 			}
@@ -145,7 +145,7 @@ void ofApp::mouseReleased(int x, int y, int button){
 	if (button == OF_MOUSE_BUTTON_LEFT) {
 		isLeftMouseButtonPressed = false;
 		
-		if (usrtask == DRAWING) {
+		if (usrtask == Mode::DRAWING) {
 			if (currentStroke.displayLine.size() > 1) {
 				currentStroke.finishStroke(set_smoothness);
 				strokes.push_back(currentStroke);

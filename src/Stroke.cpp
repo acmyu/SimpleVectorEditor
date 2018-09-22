@@ -86,9 +86,9 @@ void Stroke::updateDisplayLine(bool simplify) {
 	}	
 }
 
-void Stroke::modifyHandle(int id, int selectedHandle, int x, int y) {
+void Stroke::modifyHandle(int id, VertexTypes selectedHandle, int x, int y) {
 	ofPoint pt = bezLine[id].point;
-	if (selectedHandle == HANDLEIN) {
+	if (selectedHandle == VertexTypes::HANDLEIN) {
 		bezLine[id].handleIn.x = x;
 		bezLine[id].handleIn.y = y;
 	}
@@ -110,22 +110,25 @@ void Stroke::modifyVertex(int id, ofVec2f lastMousePos, int x, int y) {
 	updateDisplayLine();
 }
 
-int Stroke::getSelectedVertex(int iSelectedVertex, int &handle, int x, int y) {
-	handle = -1;
+int Stroke::getSelectedVertex(int iSelectedVertex, VertexTypes &handle, int x, int y) {
+	handle = VertexTypes::INVALID;
 	for (int i = 0; i < bezLine.size(); i++) {
 		BezPoint s = bezLine[i];
-		if (ofDist(s.point.x, s.point.y, x, y) < SELECTPADDING) {
-			handle = POINT;
-		}
-		else if (iSelectedVertex == i) {
-			if (ofDist(s.handleIn.x, s.handleIn.y, x, y) < SELECTPADDING) {
-				handle = HANDLEIN;
+		if (iSelectedVertex == i) {
+			if (ofDist(s.handleIn.x, s.handleIn.y, x, y) < CLICKPADDING) {
+				handle = VertexTypes::HANDLEIN;
 			}
-			else if (ofDist(s.handleOut.x, s.handleOut.y, x, y) < SELECTPADDING) {
-				handle = HANDLEOUT;
+			else if (ofDist(s.handleOut.x, s.handleOut.y, x, y) < CLICKPADDING) {
+				handle = VertexTypes::HANDLEOUT;
 			}
 		}
-		if (handle != -1) {
+		
+		// if no handle is selected, determine if point is selected
+		if (handle == VertexTypes::INVALID && ofDist(s.point.x, s.point.y, x, y) < CLICKPADDING) {
+			handle = VertexTypes::POINT;
+		}
+		
+		if (handle != VertexTypes::INVALID) {
 			return i;
 		}
 	}
@@ -140,7 +143,7 @@ int distLine(ofPoint pt, ofPolyline *line) {
 int Stroke::getSelectedStroke(vector<Stroke> *strokes, ofVec2f mousePos) {
 	for (int i = 0; i < (*strokes).size(); i++) {
 		ofPolyline *displayLine = &((*strokes)[i].displayLine);
-		if (distLine(mousePos, displayLine) < SELECTPADDING) {
+		if (distLine(mousePos, displayLine) < CLICKPADDING) {
 			return i;
 		}
 	}

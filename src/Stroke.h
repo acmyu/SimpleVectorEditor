@@ -4,17 +4,21 @@
 
 #include "ofxPathFitter.h"
 
-#define SELECTPADDING	10
-
-#define POINT		0
-#define HANDLEIN	1
-#define HANDLEOUT	2
+// threshold to determing if object is clicked
+#define CLICKPADDING	10
 
 class Stroke
 {
 	void drawEditableVertex(BezPoint vertex);
 
 public:
+	enum VertexTypes {
+		INVALID,
+		POINT,
+		HANDLEIN,
+		HANDLEOUT,
+	};
+
 	Stroke();
 	~Stroke();
 	Stroke(int i);
@@ -37,11 +41,11 @@ public:
 	// call when bezLine modified
 	void updateDisplayLine(bool simplify = true);
 	// call when point/handle modified
-	void modifyHandle(int id, int selectedHandle, int x, int y);
+	void modifyHandle(int id, VertexTypes selectedHandle, int x, int y);
 	void modifyVertex(int id, ofVec2f lastMousePos, int x, int y);
 	
-	// returns index of vertex at x,y
-	int getSelectedVertex(int iSelectedVertex, int &handle, int x, int y);
+	// returns index of point or handle at x,y
+	int getSelectedVertex(int iSelectedVertex, VertexTypes &handle, int x, int y);
 	// returns index of stroke at x,y
 	static int getSelectedStroke(vector<Stroke> *strokes, ofVec2f mousePos);
 

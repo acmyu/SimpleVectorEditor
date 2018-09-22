@@ -4,11 +4,13 @@
 
 #include "Stroke.h"
 
-#define IDLE		0
-#define DRAWING		1
-#define EDITING		2
-
 class ofApp : public ofBaseApp{
+	enum Mode {
+		IDLE,
+		DRAWING,
+		EDITING
+	};
+
 	public:
 		void setup();
 		void update();
@@ -35,7 +37,7 @@ class ofApp : public ofBaseApp{
 		Stroke currentStroke;
 		int iSelectedStroke;
 		int iSelectedVertex;
-		int selectedHandle;
+		Stroke::VertexTypes selectedHandle;
 
 		// state
 		ofVec2f lastMousePos;
@@ -44,7 +46,7 @@ class ofApp : public ofBaseApp{
 		bool isSavingRaster;
 		string save_name;
 		bool flushCanvas;
-		int usrtask;
+		Mode usrtask;
 
 		// settings
 		int set_smoothness;
