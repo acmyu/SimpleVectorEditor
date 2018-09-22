@@ -25,23 +25,33 @@ public:
 	void drawActive(int smoothness);
 	void drawEditable(int iSelectedVertex);
 
+	// call on brush down
 	void startStroke();
+	// call on brush dragged
 	void addVertex(ofVec2f v);
+	// call on brush up
 	void finishStroke(int smoothness);
 
-	void updateBez();
-	void updateLine(bool simplify = true);
+	// call when displayLine modified (finishStroke)
+	void updateBezLine();
+	// call when bezLine modified
+	void updateDisplayLine(bool simplify = true);
+	// call when point/handle modified
 	void modifyHandle(int id, int selectedHandle, int x, int y);
-	void modifyVertex(int id, int x, int y);
+	void modifyVertex(int id, ofVec2f lastMousePos, int x, int y);
 	
+	// returns index of vertex at x,y
 	int getSelectedVertex(int iSelectedVertex, int &handle, int x, int y);
+	// returns index of stroke at x,y
 	static int getSelectedStroke(vector<Stroke> *strokes, ofVec2f mousePos);
 
+	// call on drag line
 	void translateLine(ofVec2f lastMousePos, int x, int y);
 	
-	ofPolyline line;
-	vector<BezPoint> lineBez;
-
+	// the stroke that gets displayed
+	ofPolyline displayLine;
+	// contains handle coords
+	vector<BezPoint> bezLine;
 };
 
 

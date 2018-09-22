@@ -105,7 +105,7 @@ void ofApp::mouseDragged(int x, int y, int button){
 		else if (usrtask == EDITING && iSelectedStroke != -1) {
 			if (iSelectedVertex != -1) {
 				if (selectedHandle == POINT) {
-					strokes[iSelectedStroke].modifyVertex(iSelectedVertex, x, y);
+					strokes[iSelectedStroke].modifyVertex(iSelectedVertex, lastMousePos, x, y);
 				}
 				else {
 					strokes[iSelectedStroke].modifyHandle(iSelectedVertex, selectedHandle, x, y);
@@ -146,7 +146,7 @@ void ofApp::mouseReleased(int x, int y, int button){
 		isLeftMouseButtonPressed = false;
 		
 		if (usrtask == DRAWING) {
-			if (currentStroke.line.size() > 1) {
+			if (currentStroke.displayLine.size() > 1) {
 				currentStroke.finishStroke(set_smoothness);
 				strokes.push_back(currentStroke);
 			}
