@@ -4,8 +4,8 @@
 
 #include "ofxPathFitter.h"
 
-// threshold to determing if object is clicked
-#define CLICKPADDING	10
+#define CLICKPADDING 10 // threshold to determine if object is clicked
+#define SNAPPADDING 20 // threshold to determine if an endpoint can snap to a line or endpoint
 
 class Stroke
 {
@@ -23,6 +23,8 @@ public:
 	~Stroke();
 	Stroke(int i);
 	
+	bool isClosed;
+
 	void clear();
 
 	void draw();
@@ -42,7 +44,7 @@ public:
 	void updateDisplayLine(bool simplify = true);
 	// call when point/handle modified
 	void modifyHandle(int id, VertexTypes selectedHandle, int x, int y);
-	void modifyVertex(int id, ofVec2f lastMousePos, int x, int y);
+	void modifyVertex(int id, int x, int y);
 	
 	// returns index of point or handle at x,y
 	int getSelectedVertex(int iSelectedVertex, VertexTypes &handle, int x, int y);
@@ -51,6 +53,11 @@ public:
 
 	// call on drag line
 	void translateLine(ofVec2f lastMousePos, int x, int y);
+
+	// snap to intersection, convert to closedform shape if endpoints are near each other
+	void snapEndpoints();
+	bool intersectLineToStroke(ofPoint lineStart, ofPoint lineDelta, ofPoint& intersection);
+	bool snapToIntersection(BezPoint& pt, ofPoint& pt2);
 	
 	// the stroke that gets displayed
 	ofPolyline displayLine;

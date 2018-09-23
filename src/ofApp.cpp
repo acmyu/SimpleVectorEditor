@@ -105,7 +105,7 @@ void ofApp::mouseDragged(int x, int y, int button){
 		else if (usrtask == Mode::EDITING && iSelectedStroke != -1) {
 			if (iSelectedVertex != -1) {
 				if (selectedHandle == Stroke::VertexTypes::POINT) {
-					strokes[iSelectedStroke].modifyVertex(iSelectedVertex, lastMousePos, x, y);
+					strokes[iSelectedStroke].modifyVertex(iSelectedVertex, x, y);
 				}
 				else {
 					strokes[iSelectedStroke].modifyHandle(iSelectedVertex, selectedHandle, x, y);
@@ -153,7 +153,7 @@ void ofApp::mouseReleased(int x, int y, int button){
 			currentStroke.clear();  // Erase the vertices, allows us to start a new brush stroke
 		}
 	}
-	//flushCanvas = true;
+	flushCanvas = true;
 }
 
 //--------------------------------------------------------------
